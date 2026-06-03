@@ -1,8 +1,6 @@
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import scipy.stats as ss
+
 
 fig, axes = plt.subplots(2, 2)
 fig.tight_layout()
