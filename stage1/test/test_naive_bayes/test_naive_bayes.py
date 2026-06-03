@@ -1,4 +1,4 @@
-from naive_bayes import naive_bayes as nb
+from stage1.naive_bayes import naive_bayes as nb
 
 def test_naive_bayes_with_numpy():
     bayes = nb.NaiveBayesClassifier()

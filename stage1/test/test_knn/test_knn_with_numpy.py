@@ -1,4 +1,4 @@
-from knn import knn_with_numpy
+from stage1.knn import knn_with_numpy
 
 def test_knn_with_numpy():
     knn = knn_with_numpy.KNN_numpy(5)
