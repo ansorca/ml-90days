@@ -55,17 +55,3 @@ class KNN_numpy:
         winner = Counter(votes).most_common(1)[0][0]    
         #print(f"k is {self.k} votes {votes}, winner is {winner}")
         return  winner
-
-
-def test_knn_with_numpy_irregular_data():
-    X_train = [[1,1],[1,2],[2,1],[2,2],[5,5],[8,8],[9,8],[8,9]]
-    y_train = [  0,    0,    0,    1,    0,    1,    1,    1  ]
-    X_test  = [[3,3]]
-
-    for k in range(1,6,2):
-        knn = KNN_numpy(k)
-        knn.fit(X_train, y_train)
-        r=knn.predict(X_test)
-        print(f"k={k}  result is {r}")
-
-test_knn_with_numpy_irregular_data()
