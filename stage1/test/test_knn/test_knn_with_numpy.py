@@ -1,4 +1,5 @@
 from stage1.knn import knn_with_numpy
+import pytest
 
 def test_knn_with_numpy():
     knn = knn_with_numpy.KNN_numpy(5)
@@ -17,3 +18,14 @@ def test_knn_with_numpy_irregular_data():
         results.append(knn.predict(X_test))
 
     assert results == [[1], [0]]
+
+def test_knn_k_larger_than_training_set():
+    knn = knn_with_numpy.KNN_numpy(k=10)
+    knn.fit([[1,2],[2,3]], [0, 1])
+    # should not crash — what should it do?
+    result = knn.predict([[1,2]])
+
+def test_knn_predict_without_fit():
+    knn = knn_with_numpy.KNN_numpy(k=3)
+    with pytest.raises(Exception):
+        knn.predict([[1,2]])

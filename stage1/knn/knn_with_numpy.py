@@ -10,10 +10,8 @@
 # X_test  = [[2,2],[7,7]]
 
 # Expected output: [0, 1]
-
-# Source - https://stackoverflow.com/a/1319675
-# Posted by gahooa, modified by community. See post 'Timeline' for change history
-# Retrieved 2026-06-02, License - CC BY-SA 4.0
+# Implemented from scratch as part of ml-90days study plan
+# Author: Jose Antonio Soriano Camarillo
 
 
 import numpy as np
@@ -38,20 +36,20 @@ class KNN_numpy:
         return result
 
     def predict_one(self, data):
+        local_k = self.k
+     
+        if len(self.targets) < self.k:
+            local_k = len(self.targets) 
         distances = []
         
         for (i, f) in enumerate(self.features):
-            # distance = ((data[0] - f[0])**2 + (data[1]-f[1])**2) ** (1/2)
             distances.append((np.sqrt(np.sum((data - f)**2)), i))
-            #print(f"Calculating distance from {data} to {f}... distance is {distances[i]}")
 
         distances.sort()
         
-        #print(f" ordered distances {distances}")
         votes = []
-        for v in range(self.k):
+        for v in range(local_k):
             votes.append(self.targets[distances[v][1]])
         
-        winner = Counter(votes).most_common(1)[0][0]    
-        #print(f"k is {self.k} votes {votes}, winner is {winner}")
+        winner = Counter(votes).most_common(1)[0][0]
         return  winner
