@@ -36,12 +36,9 @@ class KNN_numpy:
         return result
 
     def predict_one(self, data):
-        local_k = self.k
-     
-        if len(self.targets) < self.k:
-            local_k = len(self.targets) 
+        local_k = min(len(self.targets), self.k)
+
         distances = []
-        
         for (i, f) in enumerate(self.features):
             distances.append((np.sqrt(np.sum((data - f)**2)), i))
 
