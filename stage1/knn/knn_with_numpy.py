@@ -17,7 +17,7 @@
 import numpy as np
 from collections import Counter
 
-class KNN_numpy:
+class KNNClassifier:
 
     def __init__(self,  k=1):
         self.features=None
@@ -29,24 +29,19 @@ class KNN_numpy:
         self.targets = np.array(targets)
 
     def predict(self, input):
-        result = []
-        for i in input:
-            nearest = self.predict_one(i)
-            result.append(nearest)
-        return result
+        return  np.array([self.predict_one(x) for x in input])
+        
 
     def predict_one(self, data):
         local_k = min(len(self.targets), self.k)
 
-        distances = []
-        for (i, f) in enumerate(self.features):
-            distances.append((np.sqrt(np.sum((data - f)**2)), i))
+        distances = np.sqrt(np.sum((data - self.features) ** 2, axis=1))
 
-        distances.sort()
         
-        votes = []
-        for v in range(local_k):
-            votes.append(self.targets[distances[v][1]])
+        # Get the indices of the 'k' smallest distances
+        # np.argsort returns the indices that would sort the array
+        k_indices = np.argsort(distances)[:local_k]
+        k_nearest_labels = self.targets[k_indices]
+
+        return Counter(k_nearest_labels).most_common(1)[0][0]
         
-        winner = Counter(votes).most_common(1)[0][0]
-        return  winner
