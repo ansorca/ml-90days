@@ -1,7 +1,6 @@
 import numpy as np
-import timeit
 # Import your newly compiled native Rust function directly!
-import rust_knn 
+import rust_knn
 
 class HybridKNNClassifier:
     def __init__(self, k=3):
@@ -29,21 +28,3 @@ class HybridKNNClassifier:
 
     def predict(self, X_test):
         return np.array([self.predict_single(x) for x in X_test])
-
-
-# --- VERIFYING EXECUTION TIME GAINS ---
-np.random.seed(42)
-num_features = 10
-samples_scale = 50000
-
-X_large = np.random.randn(samples_scale, num_features).astype(np.float32)
-y_large = np.random.randint(0, 2, size=samples_scale).astype(np.int64)
-x_query = np.random.randn(1, num_features).astype(np.float32)
-
-# Fit Hybrid Model
-knn_hybrid = HybridKNNClassifier(k=3)
-knn_hybrid.fit(X_large, y_large)
-
-# Time 100 loops of the hybrid execution path
-time_hybrid = min(timeit.Timer(lambda: knn_hybrid.predict(x_query)).repeat(repeat=3, number=100))
-print("Large Dataset (50,000 samples) 100 Loops Hybrid-Rust Time: {:.5f} seconds".format(time_hybrid))
