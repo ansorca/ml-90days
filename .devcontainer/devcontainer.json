@@ -1,0 +1,9 @@
+{
+  "name": "ml-90days",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {
+    "ghcr.io/devcontainers/features/rust:1": {}
+  },
+  "postCreateCommand": "pip install -r stage1/requirements.txt && pip install maturin && cd stage1/rust_knn && maturin build --release && pip install target/wheels/rust_knn*.whl",
+  "workspaceFolder": "/workspaces/ml-90days"
+}
